@@ -26,8 +26,8 @@ django-filter
 
 ## **Установка и запуск проекта**
 1. Клонировать репозиторий:
-git clone https://github.com/artyomtur2007-lang/filmbook-reviews.git
-cd filmbook-reviews
+git clone https://github.com/artyomtur2007-lang/book-reviews-site.git
+cd book-reviews-site
 2. Создать и активировать виртуальное окружение:
 python -m venv .venv
 source .venv/bin/activate (Linux / macOS)
