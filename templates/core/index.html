@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Top 10 Books</h2>
+<div class="row">
+    {% for book in top_books %}
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <img src="{{ book.cover.url }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ book.title }}</h5>
+                <p class="card-text">Rating: {{ book.average_rating }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Top 10 Movies</h2>
+<div class="row">
+    {% for movie in top_movies %}
+    <div class="col-md-3">
+        <div class="card mb-3">
+            <img src="{{ movie.cover.url }}" class="card-img-top">
+            <div class="card-body">
+                <h5 class="card-title">{{ movie.title }}</h5>
+                <p class="card-text">Rating: {{ movie.average_rating }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<h2>Latest Reviews</h2>
+<ul class="list-group">
+    {% for review in latest_reviews %}
+    <li class="list-group-item">
+        {{ review.user.username }}: {{ review.text }} ({{ review.rating }})
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

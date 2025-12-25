@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Каталог книг</h1>
+
+    <form method="get"
+          hx-get="{% url 'book_list' %}"
+          hx-target="#book-results-container"
+          hx-swap="innerHTML"
+          hx-indicator="#loading-indicator"
+          hx-trigger="submit, change delay:400ms from:input, change from:select">
+
+        <div class="row g-3 p-3 border rounded bg-light mb-4">
+
+            <div class="col-md-4">
+                {{ filter.form.search.label_tag }}
+                {{ filter.form.search }}
+            </div>
+
+            <div class="col-md-2">
+                {{ filter.form.year.label_tag }}
+                {{ filter.form.year }}
+            </div>
+
+            <div class="col-md-3">
+                <label>Сортировать</label>
+                <select name="sort" class="form-select">
+                    <option value="-average_rating" {% if sort_desc_rating %}selected{% endif %}>
+                        Рейтинг (убыв.)
+                    </option>
+                    <option value="average_rating" {% if sort_asc_rating %}selected{% endif %}>
+                        Рейтинг (возр.)
+                    </option>
+                    <option value="-id" {% if sort_newest %}selected{% endif %}>
+                        Добавленные (новые)
+                    </option>
+                    <option value="title" {% if sort_title %}selected{% endif %}>
+                        Название
+                    </option>
+                </select>
+            </div>
+
+            <div class="col-md-12">
+                {{ filter.form.genres.label_tag }}
+                {{ filter.form.genres }}
+            </div>
+
+            <div class="col-md-12 d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    Применить
+                </button>
+
+                <a href="{% url 'book_list' %}" class="btn btn-outline-secondary">
+                    Сбросить фильтры
+                </a>
+            </div>
+
+        </div>
+    </form>
+
+    <div id="loading-indicator" class="htmx-indicator text-center my-3">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+
+    <div id="book-results-container" class="row">
+        {% include 'core/partials/book_list_content.html' %}
+    </div>
+
+</div>
+{% endblock %}

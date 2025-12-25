@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h2>{{ book.title }}</h2>
+    <p class="text-muted">Год выпуска: {{ book.year }}</p>
+
+    <p>
+        ⭐️ Рейтинг:
+        <strong>{{ book.average_rating|floatformat:1 }}</strong>
+    </p>
+
+    <p>{{ book.description }}</p>
+
+    <hr>
+
+    <h4>Отзывы</h4>
+
+    {% for review in reviews %}
+        <div class="border rounded p-2 mb-2">
+            <strong>{{ review.user.username }}</strong>
+            — {{ review.rating }} ⭐️
+            <br>
+            {{ review.text }}
+        </div>
+    {% empty %}
+        <p class="text-muted">Пока нет отзывов</p>
+    {% endfor %}
+
+    <hr>
+
+    {% if user.is_authenticated %}
+        <h4>Оставить отзыв</h4>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Отправить</button>
+        </form>
+    {% else %}
+        <p>
+            <a href="{% url 'account_login' %}">Войдите</a>,
+            чтобы оставить отзыв
+        </p>
+    {% endif %}
+
+</div>
+{% endblock %}

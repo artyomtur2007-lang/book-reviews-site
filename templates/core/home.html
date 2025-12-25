@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Главная — Review Site
+{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <h1 class="mb-4">Добро пожаловать на Review Site</h1>
+
+    <p class="text-muted">
+        Всего книг: {{ total_books }} · Всего отзывов: {{ total_reviews }}
+    </p>
+
+    <hr>
+
+    <h3 class="mt-5"> ТОП-10 книг</h3> 
+
+    <div class="row">
+        {% for book in top_books %}
+            <div class="col-md-4 mb-3">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+
+                        <p class="text-muted">
+                            {{ book.year }}
+                        </p>
+
+                        <p>
+                            ⭐️ {{ book.average_rating|floatformat:1 }}
+                        </p>
+
+                        <a href="{% url 'book_detail' book.id %}" class="btn btn-sm btn-outline-primary">
+                            Подробнее
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <p>Пока нет книг с оценками</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
